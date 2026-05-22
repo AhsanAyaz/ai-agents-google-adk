@@ -29,7 +29,7 @@ This project demonstrates how to leverage Google ADK's code-first approach and w
 
 ## Prerequisites
 
-*   Python 3.7+
+*   Python 3.11+ (Required for Google ADK 2.0.0+)
 *   pip (Python package installer)
 *   Access to an LLM provider (like Google AI Studio/Vertex AI, OpenAI, etc.) and an associated API Key. This tutorial uses Google's Gemini models via the Google AI client library, which is integrated with ADK.
 *   A Google API Key with access to Gemini models. You can obtain one from [Google AI Studio](https://aistudio.google.com/).
@@ -49,17 +49,16 @@ This project demonstrates how to leverage Google ADK's code-first approach and w
 3.  **Activate the virtual environment:**
     *   On macOS and Linux:
         ```bash
-        source venv/bin/activate
+        source .venv/bin/activate
         ```
     *   On Windows:
         ```bash
-        .\venv\Scripts\activate
+        .\.venv\Scripts\activate
         ```
 4.  **Install dependencies:**
     ```bash
-    pip install -r backend/requirements.txt
+    pip install -r requirements.txt
     ```
-    *(Note: The `requirements.txt` is located inside the `backend` folder, as Part 2 will add a frontend folder at the top level.)*
 5.  **Set up your API Key:**
     *   Create a file named `.env` in the **directory** `marketing_campaign_agent`.
     *   Add your Google API Key to this file, using the environment variable name expected by the Google AI client library (usually `GOOGLE_API_KEY`).

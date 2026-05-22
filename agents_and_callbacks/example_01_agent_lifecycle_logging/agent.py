@@ -12,7 +12,7 @@ def before_agent_callback(callback_context: CallbackContext) -> Optional[types.C
     if "session_id" not in callback_context.state:
         callback_context.state["session_id"] = str(uuid.uuid4())
 
-    callback_context.state["interaction_start_time"] = datetime.now(timezone.utc)
+    callback_context.state["interaction_start_time"] = datetime.now(timezone.utc).isoformat()
     request_num = callback_context.state.get("request_counter", 0) + 1
     callback_context.state["request_counter"] = request_num
 
@@ -26,9 +26,10 @@ def before_agent_callback(callback_context: CallbackContext) -> Optional[types.C
 
 
 def after_agent_callback(callback_context: CallbackContext) -> Optional[types.Content]:
-    start_time = callback_context.state.get("interaction_start_time")
+    start_time_str = callback_context.state.get("interaction_start_time")
     duration_str = "N/A"
-    if start_time:
+    if start_time_str:
+        start_time = datetime.fromisoformat(start_time_str)
         duration = datetime.now(timezone.utc) - start_time
         duration_str = f"{duration.total_seconds():.2f}s"
 
