@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+ORIGINAL_DIR=$(pwd)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
@@ -20,5 +21,8 @@ source .venv/bin/activate
 pip install --upgrade pip -q
 pip install -r requirements.txt
 
+# Get the path to the virtual environment relative to where the user currently is
+VENV_PATH=$(realpath --relative-to="$ORIGINAL_DIR" "$SCRIPT_DIR/.venv/bin/activate")
+
 echo ""
-echo "Setup complete. Activate with: source agentspan_demo/.venv/bin/activate"
+echo "Setup complete. Activate with: source $VENV_PATH"
