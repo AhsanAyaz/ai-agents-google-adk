@@ -1,6 +1,6 @@
 # Google ADK Tutorial Series: Marketing Campaign Assistant & More
 
-This repository contains the code for a comprehensive tutorial series on **Google's Agent Development Kit (ADK)**. From building core multi-agent logic to complex orchestration and deployment, this project covers the full lifecycle of modern AI agents.
+This repository contains the code for a comprehensive tutorial series on **Google's Agent Development Kit (ADK)**. From building core multi-agent logic to durable execution and deployment, this project covers the full lifecycle of modern AI agents.
 
 🎥 **Watch the Full Google ADK Tutorial Playlist:** [https://www.youtube.com/playlist?list=PL2sQdFoGnLIjoGQuK_jF92YOB-9iJAAlW](https://www.youtube.com/playlist?list=PL2sQdFoGnLIjoGQuK_jF92YOB-9iJAAlW)
 
@@ -17,6 +17,7 @@ This repository is organized into several modules, each representing a specific 
 5.  **`sessions_and_agents/`**: How to manage long-term memory and user state across multiple turns.
 6.  **`deploying_agents/`**: Instructions and scripts for deploying your ADK agents to Google Cloud (Vertex AI).
 7.  **`agents_and_callbacks/`**: Advanced lifecycle management using before/after hooks for logging and sanitization.
+8.  **`agentspan_demo/`**: **NEW!** A deep dive into **Durable Execution**. Learn how to build agents that survive crashes and resume perfectly using Agentspan.
 
 ---
 
@@ -68,7 +69,8 @@ marketing-agents-adk/
 ├── structured_output/          # Schema enforcement
 ├── sessions_and_agents/        # State & Memory management
 ├── deploying_agents/           # Vertex AI deployment scripts
-└── agents_and_callbacks/       # Lifecycle hooks
+├── agents_and_callbacks/       # Lifecycle hooks
+└── agentspan_demo/             # Durable execution demo
 ```
 
 ## How to Run the Agents
@@ -84,6 +86,9 @@ Run any agent directly from your terminal:
 ```bash
 adk run marketing_campaign_agent "Help me with a campaign for a new ergonomic chair"
 ```
+
+### 3. Running the Agentspan Demo
+Navigate to `agentspan_demo/` and follow the instructions in its `Readme.md` or run the `setup.sh` script to see durable execution in action.
 
 ## Contributing
 
