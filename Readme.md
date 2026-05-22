@@ -1,38 +1,30 @@
-# Marketing Campaign Assistant - Google ADK Tutorial Project
+# Google ADK Tutorial Series: Marketing Campaign Assistant & More
 
-This repository contains the code for the Marketing Campaign Assistant project, built as part of a tutorial series on Google's Agent Development Kit (ADK).
+This repository contains the code for a comprehensive tutorial series on **Google's Agent Development Kit (ADK)**. From building core multi-agent logic to complex orchestration and deployment, this project covers the full lifecycle of modern AI agents.
 
-**Part 1 of this series focuses on building the core multi-agent logic using Python and Google ADK, and running/visualizing it locally using the ADK command-line interface and web development UI.**
+🎥 **Watch the Full Google ADK Tutorial Playlist:** [https://www.youtube.com/playlist?list=PL2sQdFoGnLIjoGQuK_jF92YOB-9iJAAlW](https://www.youtube.com/playlist?list=PL2sQdFoGnLIjoGQuK_jF92YOB-9iJAAlW)
 
-Watch the tutorial video here: [https://www.youtube.com/watch?v=/r-JsrEoctCQ](https://www.youtube.com/watch?v=/r-JsrEoctCQ)
+---
 
 ## Project Description
 
-The Marketing Campaign Assistant is a multi-agent system designed to automate the initial steps of creating a marketing campaign brief. It takes a product idea as input and uses a workflow of specialized AI agents to:
+This repository is organized into several modules, each representing a specific stage or feature of the Google ADK:
 
-1.  Research market trends and target audience.
-2.  Craft key messaging.
-3.  Write ad copy variations.
-4.  Suggest visual concepts.
-5.  Format the results into a cohesive brief.
+1.  **`marketing_campaign_agent/`**: The core multi-agent system. It automates market research, messaging, ad copy, and visual suggestions into a cohesive brief.
+2.  **`tools_agent/`**: Demonstrates how to integrate custom and built-in tools (like Google Search) into your agents.
+3.  **`multi_model/`**: Showcases orchestration across different models (Gemini, GPT-4, Claude) using the LiteLLM integration.
+4.  **`structured_output/`**: Examples of how to enforce Pydantic schemas for reliable agent outputs.
+5.  **`sessions_and_agents/`**: How to manage long-term memory and user state across multiple turns.
+6.  **`deploying_agents/`**: Instructions and scripts for deploying your ADK agents to Google Cloud (Vertex AI).
+7.  **`agents_and_callbacks/`**: Advanced lifecycle management using before/after hooks for logging and sanitization.
 
-This project demonstrates how to leverage Google ADK's code-first approach and workflow orchestration capabilities to build agents that collaborate on a complex task.
-
-## Features Covered in Part 1
-
-*   Defining specialized `LlmAgent` components.
-*   Orchestrating agents in a specific sequence using a `SequentialAgent` workflow.
-*   Using built-in tools (like Google Search).
-*   Passing state/information between agents.
-*   Running the agent locally via the ADK CLI (`adk run`).
-*   Visualizing the agent's execution flow and state using the ADK Web UI (`adk web`).
+---
 
 ## Prerequisites
 
-*   Python 3.11+ (Required for Google ADK 2.0.0+)
-*   pip (Python package installer)
-*   Access to an LLM provider (like Google AI Studio/Vertex AI, OpenAI, etc.) and an associated API Key. This tutorial uses Google's Gemini models via the Google AI client library, which is integrated with ADK.
-*   A Google API Key with access to Gemini models. You can obtain one from [Google AI Studio](https://aistudio.google.com/).
+*   **Python 3.11+** (Required for Google ADK 2.0.0+)
+*   **pip** (Python package installer)
+*   **Google API Key** with access to Gemini models. Obtain one from [Google AI Studio](https://aistudio.google.com/).
 *   Basic familiarity with Python.
 
 ## Installation
@@ -60,47 +52,38 @@ This project demonstrates how to leverage Google ADK's code-first approach and w
     pip install -r requirements.txt
     ```
 5.  **Set up your API Key:**
-    *   Create a file named `.env` in the **directory** `marketing_campaign_agent`.
-    *   Add your Google API Key to this file, using the environment variable name expected by the Google AI client library (usually `GOOGLE_API_KEY`).
+    *   Create a file named `.env` in the project root.
+    *   Add your Google API Key:
         ```env
         GOOGLE_API_KEY='YOUR_ACTUAL_GOOGLE_API_KEY'
         ```
-    *   Replace `'YOUR_ACTUAL_GOOGLE_API_KEY'` with your key.
 
-## Project Structure (Part 1)
+## Project Structure
 
 ```
 marketing-agents-adk/
-├── marketing_campaign_agent/
-│   ├── __init__.py         # Package initialization
-    └── .env                # Stores your API key (not committed to git)
-│   ├── agent.py            # Defines all LlmAgents and the SequentialAgent workflow
-│   ├── requirements.txt    # Project dependencies
-│   └── instruction.py      # Text files containing detailed instructions for each agent
+├── marketing_campaign_agent/   # Core tutorial agent
+├── tools_agent/                # Tool integration examples
+├── multi_model/                # Multi-provider orchestration
+├── structured_output/          # Schema enforcement
+├── sessions_and_agents/        # State & Memory management
+├── deploying_agents/           # Vertex AI deployment scripts
+└── agents_and_callbacks/       # Lifecycle hooks
 ```
 
-## How to Run the Agent (Part 1)
+## How to Run the Agents
 
-You can run and interact with the agent as explained in the video:
-## **Using the ADK Web UI (`adk web`)**
-    *   Ensure your virtual environment is activated and the `.env` file is set up correctly in the project root.
-    *   Navigate to the project root directory (`marketing-agents-adk`).
-    *   Run the ADK web command:
-        ```bash
-        adk web
-        ```
-    *   The command will start a local web server and provide a URL (usually `http://localhost:8000`).
-    *   Open this URL in your web browser.
-    *   In the Web UI, select `marketing_campaign_agent` from the dropdown on the left.
-    *   You can then type messages, view agent responses, and explore the "Events" tab to see the internal workflow execution, including which sub-agents were called and in what order.
+### 1. Using the ADK Web UI (`adk web`)
+This is the best way to visualize the graph-based workflows:
+1. Ensure your `.env` file is set up in the project root.
+2. Run: `adk web .`
+3. Open `http://localhost:8000` and select the agent you want to test from the dropdown.
 
-## Future Development (Part 2)
-
-In the next part of this tutorial series, we will:
-
-*   Deploy our agent to Google Cloud
-
-Stay tuned!
+### 2. Using the CLI (`adk run`)
+Run any agent directly from your terminal:
+```bash
+adk run marketing_campaign_agent "Help me with a campaign for a new ergonomic chair"
+```
 
 ## Contributing
 
