@@ -7,6 +7,7 @@ Plain ADK run — demonstrates crash-and-restart problem.
 """
 
 import asyncio
+import inspect
 import time
 
 from dotenv import load_dotenv
@@ -23,9 +24,11 @@ from agent import pipeline, writer, TOPIC
 
 async def main():
     session_service = InMemorySessionService()
-    session = await session_service.create_session(
+    session = session_service.create_session(
         app_name="research", user_id="user1", session_id="session1"
     )
+    if inspect.isawaitable(session):
+        session = await session
 
     runner = Runner(
         agent=pipeline,

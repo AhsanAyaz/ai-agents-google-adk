@@ -1,0 +1,3 @@
+google-adk==2.0.0
+agentspan==0.1.10
+python-dotenv>=1.2.2

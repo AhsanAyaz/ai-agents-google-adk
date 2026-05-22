@@ -6,7 +6,7 @@ load_dotenv()
 
 from google.adk.agents import LlmAgent, SequentialAgent
 
-MODEL = os.environ.get("GOOGLE_GENAI_MODEL", "gemini-2.5-flash")
+MODEL = os.environ.get("GOOGLE_GENAI_MODEL", "gemini-flash-latest")
 
 
 researcher = LlmAgent(
