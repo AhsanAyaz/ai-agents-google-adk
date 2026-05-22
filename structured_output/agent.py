@@ -5,7 +5,7 @@ from google.adk.agents import LlmAgent, SequentialAgent
 from pydantic import BaseModel, Field
 
 
-class ConsultantTypeEnum(PyEnum):
+class ConsultantTypeEnum(str, PyEnum):
     PSYCHOLOGIST = "psychologist"
     PSYCHIATRIST = "psychiatrist"
     THERAPIST = "therapist"

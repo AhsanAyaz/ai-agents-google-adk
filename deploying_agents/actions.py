@@ -1,8 +1,26 @@
 import time
+import inspect
+import asyncio
 from typing import Any, Dict, List, Optional
 
 from google.api_core import exceptions
 from vertexai import agent_engines
+
+async def _maybe_await(obj):
+    if inspect.isawaitable(obj):
+        return await obj
+    return obj
+
+def _run_sync(coro):
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    
+    if loop.is_running():
+        return coro
+    return loop.run_until_complete(_maybe_await(coro))
 
 
 def list_deployments() -> List[Any]:
@@ -41,7 +59,8 @@ def create_session(resource_id: str, user_id: str) -> Optional[Dict[str, Any]]:
     """
     try:
         deployment = agent_engines.get(resource_id)
-        session = deployment.create_session(user_id=user_id)
+        res = deployment.create_session(user_id=user_id)
+        session = _run_sync(res)
         print(f"Session created: {session}")
         return session
     except exceptions.GoogleAPIError as e:
@@ -61,7 +80,8 @@ def list_sessions(resource_id: str, user_id: str) -> List[Any]:
     """
     try:
         deployment = agent_engines.get(resource_id)
-        sessions = deployment.list_sessions(user_id=user_id)
+        res = deployment.list_sessions(user_id=user_id)
+        sessions = _run_sync(res)
         print(f"Sessions for user {user_id}:")
         for session in sessions["sessions"]:
             print(f"- {session}")
@@ -90,7 +110,8 @@ def get_session(
         deployment = agent_engines.get(resource_id)
         # Add a small delay to allow the session to be fully initialized
         time.sleep(1)
-        session = deployment.get_session(user_id=user_id, session_id=session_id)
+        res = deployment.get_session(user_id=user_id, session_id=session_id)
+        session = _run_sync(res)
         print(f"Session {session_id} details: {session}")
         return session
     except exceptions.GoogleAPIError as e:
@@ -150,7 +171,8 @@ def delete_session(resource_id: str, user_id: str, session_id: str) -> Optional[
     """
     try:
         deployment = agent_engines.get(resource_id)
-        response = deployment.delete_session(user_id=user_id, session_id=session_id)
+        res = deployment.delete_session(user_id=user_id, session_id=session_id)
+        response = _run_sync(res)
         print(f"Session {session_id} deleted: {response}")
         return response
     except exceptions.GoogleAPIError as e:
@@ -172,7 +194,8 @@ def delete_all_sessions(resource_id: str, user_id: str) -> int:
         deployment = agent_engines.get(resource_id)
         try:
             # Get sessions directly from the API to ensure we have the correct format
-            sessions = deployment.list_sessions(user_id=user_id)
+            res = deployment.list_sessions(user_id=user_id)
+            sessions = _run_sync(res)
             print(f"Sessions for user {user_id}: {sessions}")
             sessions_list = list(sessions["sessions"])
             print(f"Sessions list: {sessions_list}")

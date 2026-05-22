@@ -27,10 +27,10 @@ app = reasoning_engines.AdkApp(
 remote_app = agent_engines.create(
     agent_engine=app,
     requirements=[
-        "google-cloud-aiplatform[adk,agent_engines]",
-        "litellm",
-        "pydantic",
-        "python-dotenv",
+        "google-cloud-aiplatform[adk,agent_engines]>=1.153.1",
+        "litellm>=1.85.0",
+        "pydantic>=2.13.4",
+        "python-dotenv>=1.2.2",
     ],
     env_vars=[
         "GOOGLE_API_KEY",
